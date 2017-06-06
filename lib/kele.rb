@@ -6,7 +6,7 @@ class Kele
 
   def initialize(email, password)
     response = self.class.post("https://www.bloc.io/api/v1/sessions", body: {"email": email, "password": password})
-    if msg == "invalid email or password"
+    if @user_token == nil
       "Invalid Credentials"
     else
       "Welcome"
