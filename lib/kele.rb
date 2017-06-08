@@ -23,16 +23,20 @@ class Kele
   end
 
   def get_mentor_availability(mentor_id)
-    response = self.class.get("https://www.bloc.io/api/v1/mentors/#{mentor_id}/student_availability", headers: {"authorization" => @user_token})
+    response = self.class.get("https://www.bloc.io/api/v1/mentors/#{mentor_id}/student_availability", headers: {"authorization" => @user_token })
     mentor_data = JSON.parse(response.body)
   end
 
   def get_messages(page)
-    response = self.class.get("https://www.bloc.io/api/v1/message_threads?page=#{page}", headers: {"authorization" => @user_token})
+    response = self.class.get("https://www.bloc.io/api/v1/message_threads?page=#{page}", headers: {"authorization" => @user_token })
     message_data = JSON.parse(response.body)
   end
 
   def create_message(recipient_id, subject, message)
-    response = self.class.post("https://www.bloc.io/api/v1/messages", body: {"recipient_id": recipient_id, "subject": subject, "stripped-text": message }, headers: {"authorization" => @user_token})
+    response = self.class.post("https://www.bloc.io/api/v1/messages", body: {"recipient_id": recipient_id, "subject": subject, "stripped-text": message }, headers: {"authorization" => @user_token })
+  end
+
+  def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment)
+    response = self.class.post("https://www.bloc.io/api/v1/checkpoint_submissions", body: { "checkpoint_id": checkpoint_id, "assignment_branch": assignment_branch, "assignment_commit_link": assignment_commit_link, "comment": comment }, headers: {"authorization" => @user_token })
   end
 end
